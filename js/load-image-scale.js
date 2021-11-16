@@ -74,12 +74,22 @@
     newOptions.crop = true
     width = img.naturalWidth || img.width
     height = img.naturalHeight || img.height
-    if (width / height > aspectRatio) {
-      newOptions.maxWidth = height * aspectRatio
-      newOptions.maxHeight = height
+    if (options.orientationAwareAspectRatio && height > width) {
+      if (height / width > aspectRatio) {
+        newOptions.maxWidth = height
+        newOptions.maxHeight = height * aspectRatio
+      } else {
+        newOptions.maxWidth = width / aspectRatio
+        newOptions.maxHeight = width
+      }
     } else {
-      newOptions.maxWidth = width
-      newOptions.maxHeight = width / aspectRatio
+      if (width / height > aspectRatio) {
+        newOptions.maxWidth = height * aspectRatio
+        newOptions.maxHeight = height
+      } else {
+        newOptions.maxWidth = width
+        newOptions.maxHeight = width / aspectRatio
+      }
     }
     return newOptions
   }
