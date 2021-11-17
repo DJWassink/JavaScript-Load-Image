@@ -58,6 +58,7 @@
   // gets img, options, data passed as arguments:
   loadImage.getTransformedOptions = function (img, options) {
     var aspectRatio = options.aspectRatio
+    var portraitAspectRatio = options.portraitAspectRatio
     var newOptions
     var i
     var width
@@ -74,12 +75,12 @@
     newOptions.crop = true
     width = img.naturalWidth || img.width
     height = img.naturalHeight || img.height
-    if (options.orientationAwareAspectRatio && height > width) {
-      if (height / width > aspectRatio) {
+    if (portraitAspectRatio && height > width) {
+      if (height / width > portraitAspectRatio) {
         newOptions.maxWidth = height
-        newOptions.maxHeight = height * aspectRatio
+        newOptions.maxHeight = height / portraitAspectRatio
       } else {
-        newOptions.maxWidth = width / aspectRatio
+        newOptions.maxWidth = width * portraitAspectRatio
         newOptions.maxHeight = width
       }
     } else {
